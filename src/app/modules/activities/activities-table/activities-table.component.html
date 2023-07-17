@@ -1,0 +1,80 @@
+<h3>Gestion Vuelos</h3>
+
+<form>
+  <mat-form-field appearance="standard">
+    <mat-label>Origin</mat-label>
+    <input matInput name="origin"   placeholder="origin"
+     [(ngModel)]="origin" #input minlength="3" maxlength="3"
+     style="text-transform:uppercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
+     id="vl1">
+  </mat-form-field>
+
+  <mat-form-field appearance="standard">
+    <mat-label>Destination</mat-label>
+    <input matInput name="destination" placeholder="destination"
+     [(ngModel)]="destination" #input minlength="3" maxlength="3"
+     style="text-transform:uppercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
+     id="vl2">
+  </mat-form-field>
+  <br />
+  <mat-form-field class="field-app">
+    <mat-label>Currency</mat-label>
+    <mat-select name="currency" [(ngModel)]="currency">
+        <mat-option></mat-option>
+        <ng-container *ngFor="let data of currencyTrm">
+            <mat-option  [value]="data.currency">{{data.currency }}</mat-option>
+        </ng-container>
+    </mat-select>
+  </mat-form-field>
+
+  <br />
+  <div class="demo-button-container">
+    <button mat-raised-button (click)="onClickSubmit(origin, destination,currency)" class="demo-button">
+      Submit
+    </button>
+  </div>
+  <br />
+</form>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="origin">
+      <th mat-header-cell *matHeaderCellDef> Origin</th>
+      <td mat-cell *matCellDef="let row"> {{row.origin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="destination">
+      <th mat-header-cell *matHeaderCellDef> Destination</th>
+      <td mat-cell *matCellDef="let row"> {{row.destination}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price</th>
+      <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="flightNumber">
+      <th mat-header-cell *matHeaderCellDef> FlightNumber</th>
+      <td mat-cell *matCellDef="let row"> {{row.transport.flightNumber}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="flightCarrier">
+      <th mat-header-cell *matHeaderCellDef> FlightCarrier</th>
+      <td mat-cell *matCellDef="let row"> {{row.transport.flightCarrier}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsFlights"></tr>
+    <tr mat-row  *matRowDef="let row; columns: displayedColumnsFlights;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No es posible calcular la ruta por favor intentelo de nuevo."
+        {{input.value}}"</td>
+    </tr>
+  </table>
+</div>
+
+<br>
+<mat-label>TOTAL PRICE:</mat-label>
+<mat-label>{{injectTotalprice | currency: currency }}</mat-label>
+
