@@ -20,7 +20,7 @@ export interface IData {
 })
 export class SearchComponent implements OnInit {
 
-  displayedColumns: string[] = ['codProduct','product','amount','price'];
+  displayedColumns: string[] = ['id','idClient','nameClient'];
   dataSource:any;
   public idClient = "";
   data: IData[] = [];
@@ -31,20 +31,31 @@ export class SearchComponent implements OnInit {
   {}
 
   ngOnInit(): void {
+    this.onGetSubmit();
   }
 
   onClickSubmit(search:any) {
     var countPrice: number;
     countPrice=0;
-    this.activitiesService.getProducts(search).subscribe(result => {
+    this.activitiesService.getClient(search).subscribe(result => {
       this.data = (result);
-      this.data.forEach(result =>{
-        countPrice = (countPrice+(Number(result.price)))
-      })
-      this.injectTotalprice=  String(countPrice)
       this.dataSource= this.data;
     });
 
+  }
+  onGetSubmit() {
+    try {
+
+      var countPrice: number;
+      countPrice=0;
+
+      this.activitiesService.getAllClients().subscribe(result => {
+        this.data = (result);
+        this.dataSource= this.data;
+      });
+    } catch (error) {
+      console.error(error)
+    }
   }
 
 }

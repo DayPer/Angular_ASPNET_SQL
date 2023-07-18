@@ -2,10 +2,10 @@
 
 <form>
   <mat-form-field appearance="standard">
-    <mat-label>Search/Create</mat-label>
+    <mat-label>Search</mat-label>
     <input matInput name="idClient"   placeholder="idClient"
-     [(ngModel)]="idClient" #input minlength="3" maxlength="3"
-     style="text-transform:uppercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
+    [(ngModel)]="idClient" #input minlength="7" maxlength="15"
+    style="text-transform:uppercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
      id="vl1">
   </mat-form-field>
   <br />
@@ -21,24 +21,19 @@
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="codProduct">
-      <th mat-header-cell *matHeaderCellDef> CodProduct</th>
-      <td mat-cell *matCellDef="let row"> {{row.codProduct}} </td>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id</th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="product">
-      <th mat-header-cell *matHeaderCellDef> Product</th>
-      <td mat-cell *matCellDef="let row"> {{row.product}} </td>
+    <ng-container matColumnDef="idClient">
+      <th mat-header-cell *matHeaderCellDef> Id Client</th>
+      <td mat-cell *matCellDef="let row"> {{row.idClient}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef> Amount</th>
-      <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> Price</th>
-      <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+    <ng-container matColumnDef="nameClient">
+      <th mat-header-cell *matHeaderCellDef> Name Client</th>
+      <td mat-cell *matCellDef="let row"> {{row.nameClient}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

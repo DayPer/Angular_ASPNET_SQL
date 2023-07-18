@@ -60,4 +60,12 @@ export class ActivitiesService {
   public putOrders(codOrder: string, data:dataOrders): Observable<any> {
     return this.http.put<any>(`${ipServer2}/api/Orders/`+ codOrder,data);
   }
+
+  public getAllClients(): Observable<any> {
+    return this.http.get<any>(`${ipServer2}/api/Clients`);
+  }
+
+  public getClient(search:any): Observable<any> {
+    return this.http.get<any>(`${ipServer2}/api/Clients/`+search);
+  }
 }
