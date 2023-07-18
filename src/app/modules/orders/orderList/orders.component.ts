@@ -94,7 +94,6 @@ export class OrdersComponent implements OnInit {
     var countPrice: number;
     countPrice=0;
     this.activitiesService.putProducts(data.codProduct,data).subscribe(result => {
-      ///this.dataSource= this.data;
       this.onGetSubmit();
     });
 
@@ -109,7 +108,6 @@ export class OrdersComponent implements OnInit {
       var countPrice: number;
       countPrice=0;
       this.activitiesService.postProducts(data).subscribe(result => {
-        ///this.dataSource= this.data;
         this.onGetSubmit();
     });
   }
