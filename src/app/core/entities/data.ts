@@ -6,5 +6,12 @@ export class Flights {
   flightNumber! : string;
   constructor() {
   }
+}
 
+export class dataProducts {
+  codProduct!: string;
+  product!: string;
+  price!: number;
+  constructor() {
+  }
 }

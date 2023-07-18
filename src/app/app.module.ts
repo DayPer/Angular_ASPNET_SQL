@@ -10,6 +10,7 @@ import {ActivitiesModule} from "./modules/activities/activities.module";
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './modules/home/home.component';
 import { TOTALPRICE } from 'src/app/utils/injection.token';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TOTALPRICE } from 'src/app/utils/injection.token';
     BrowserAnimationsModule,
     MaterialModule,
     MatNativeDateModule,
-    ActivitiesModule
+    ActivitiesModule,
+    OrdersModule
   ],
   providers: [{
     provide: TOTALPRICE,
