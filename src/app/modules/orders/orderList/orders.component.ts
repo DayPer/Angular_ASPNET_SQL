@@ -10,11 +10,22 @@ export interface ICurrency {
   currency: string;
 }
 
-export interface IData {
+export interface IDataOrders {
+  idOrder: Number;
+  codProduct: string;
+  codOrder: string;
+  idClient: string;
+  nameClient: string;
+  telClient: string;
+  amountProduct: number;
+  amountOrder: number;
+
+}
+
+export interface IDataProduct {
   codProduct: string;
   product: string;
-  price: string;
-
+  price: number;
 }
 
 
@@ -25,20 +36,28 @@ export interface IData {
 })
 export class OrdersComponent implements OnInit {
 
-  displayedColumns: string[] = ['codProduct','product','price'];
+  displayedColumns: string[] = ['idOrder','codOrder','idClient',
+           'nameClient','telClient','amountProduct','amountOrder'];
   dataSource:any;
 
   @ViewChild(MatSort) sort!: MatSort;
   public codProduct = "";
-  public product = "";
+  public codOrder = "";
+  public idClient = "";
+  public nameClient = "";
+  public telClient = "";
+  public amountProduct = 0;
+  public amountOrder = 0;
   public price = 0;
   public search = "";
+
 
   currency: ICurrency[] = [
     {currency:"COP"}
   ];
 
-  data: IData[] = [];
+  dataOrders: IDataOrders[] = [];
+  dataProducts: IDataProduct[] = [];
 
   constructor(private activitiesService: ActivitiesService,
     private http: HttpClient,
@@ -51,20 +70,13 @@ export class OrdersComponent implements OnInit {
       var countPrice: number;
       countPrice=0;
 
-      this.activitiesService.getAllProducts().subscribe(result => {
-        this.data = (result);
-        var fcurrency:any
-        this.currency.forEach(trm =>{
-            fcurrency = trm.currency
-            return;
-        })
-
-        this.data.forEach(result =>{
-          countPrice = (countPrice+(Number(result.price)))
-          result.price = fcurrency +-+ String(Number(result.price));
+      this.activitiesService.getAllOrders().subscribe(result => {
+        this.dataOrders = (result);
+        this.dataOrders.forEach(result =>{
+          countPrice = (countPrice+(Number(result.amountOrder)))
         })
         this.injectTotalprice=  String(countPrice)
-        this.dataSource= this.data;
+        this.dataSource= this.dataOrders;
       });
     } catch (error) {
       console.error(error)
@@ -72,58 +84,74 @@ export class OrdersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.onGetSubmit();
+    this.onGetAllProducts();
   }
 
   onClickSubmit(search:any) {
     var countPrice: number;
     countPrice=0;
-    this.activitiesService.getProducts(search).subscribe(result => {
-      this.data = (result);
-      this.data.forEach(result =>{
-        countPrice = (countPrice+(Number(result.price)))
+    this.activitiesService.getOrders(search).subscribe(result => {
+      this.dataOrders = (result);
+      this.dataOrders.forEach(result =>{
+        countPrice = (countPrice+(Number(result.amountOrder)))
       })
       this.injectTotalprice=  String(countPrice)
-      this.dataSource= this.data;
+      this.dataSource= this.dataOrders;
     });
 
   }
 
   onClickDelete(search:any) {
-    var countPrice: number;
-    countPrice=0;
-    this.activitiesService.deleteProducts(search).subscribe(result => {
-      this.data = [];
+    var codOrder: string;
+    this.dataOrders.forEach(count=>{
+      codOrder=count.codOrder
+    })
+    this.activitiesService.deleteOrders(search).subscribe(result => {
+      this.dataOrders = [];
       this.injectTotalprice=  String('00')
-      this.dataSource= this.data;
+      this.dataSource= this.dataOrders;
     });
     this.onGetSubmit();
   }
 
-  onClickPut() {
-    const data = {
-      price: this.price,
-      product:this.product,
-      codProduct:this.codProduct
-  }
-    var countPrice: number;
-    countPrice=0;
-    this.activitiesService.putProducts(data.codProduct,data).subscribe(result => {
-      this.onGetSubmit();
-    });
+   onClickPost(codProduct:any) {
+      var fprice: number;
+      var fcount: number;
+      fprice=0;
+      fcount=0;
+      this.dataProducts.forEach(product=>{
+        if (product.codProduct==codProduct){
+          fprice=product.price;
+          return;
+        }
+      })
 
+      this.dataOrders.forEach(count=>{
+        fcount= (fcount+1)
+      })
+      const data = {
+      codProduct: this.codProduct.trim(),
+      codOrder: (this.codProduct.trim()+-+this.idClient.trim()+-+String(fcount)),
+      idClient: this.idClient.trim(),
+      nameClient: this.nameClient.trim(),
+      telClient: this.telClient.trim(),
+      amountProduct: Number(this.amountProduct),
+      amountOrder: (this.amountProduct*fprice)
   }
-
-  onClickPost() {
-    const data = {
-      price: this.price,
-      product:this.product,
-      codProduct:this.codProduct
-  }
-      var countPrice: number;
-      countPrice=0;
-      this.activitiesService.postProducts(data).subscribe(result => {
+      this.activitiesService.postOrders(data).subscribe(result => {
         this.onGetSubmit();
     });
+  }
+
+  onGetAllProducts() {
+    try {
+
+      this.activitiesService.getAllProducts().subscribe(result => {
+        this.dataProducts = (result);
+      });
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 

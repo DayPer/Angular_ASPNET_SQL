@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import { dataProducts } from '../entities/data';
+import { dataOrders, dataProducts } from '../entities/data';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -20,6 +20,7 @@ export class ActivitiesService {
   public getFlights(origin:any, destination:any): Observable<any> {
     return this.http.get<any>(`${ipServer1}/flightAvailability/GetFlightsForJourney?Origin=`+ origin + '&Destination=' + destination);
   }
+
   public getAllProducts(): Observable<any> {
     return this.http.get<any>(`${ipServer2}/api/Products`);
   }
@@ -38,5 +39,25 @@ export class ActivitiesService {
 
   public postProducts(data:dataProducts): Observable<any> {
     return this.http.post<any>(`${ipServer2}/api/Products/`,data);
+  }
+
+  public getAllOrders(): Observable<any> {
+    return this.http.get<any>(`${ipServer2}/api/Orders`);
+  }
+
+  public getOrders(search:any): Observable<any> {
+    return this.http.get<any>(`${ipServer2}/api/Orders/`+search);
+  }
+
+  public postOrders(data:dataOrders): Observable<any> {
+    return this.http.post<any>(`${ipServer2}/api/Orders/`,data);
+  }
+
+  public deleteOrders(search:any): Observable<any> {
+    return this.http.delete<any>(`${ipServer2}/api/Orders/`+search);
+  }
+
+  public putOrders(codOrder: string, data:dataOrders): Observable<any> {
+    return this.http.put<any>(`${ipServer2}/api/Orders/`+ codOrder,data);
   }
 }

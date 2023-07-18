@@ -12,9 +12,9 @@ export class AppComponent {
   public opcionesMenu = [
     {name: 'HOME', url: '/home', icon: 'home'},
     // {name: 'ACTIVIDADES', url: '/activities', icon: 'restore'},
-    {name: 'PRODUCTS', url: '/orders', icon: 'check'},
-    {name: 'ORDERS', url: '/products', icon: 'list'},
-    {name: 'SEARCH', url: '/search', icon: 'search'},
+    {name: 'PRODUCTS', url: '/products', icon: 'check'},
+    {name: 'ORDERS', url: '/orders', icon: 'list'},
+    {name: 'CLIENTS', url: '/search', icon: 'search'},
 
   ];
 

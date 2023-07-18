@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.title= 'Welcome',
-    this.poster='https://www.newshore.es/media/1310/header-plane-3jpg.jpg'
+    this.poster='https://algartech.com/wp-content/uploads/2019/04/algartech-grupo.jpg'
 
   }
 

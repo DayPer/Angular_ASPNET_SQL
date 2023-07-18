@@ -15,3 +15,17 @@ export class dataProducts {
   constructor() {
   }
 }
+
+export class dataOrders {
+  codProduct!: string;
+  codOrder!: string;
+
+  idClient!: string;
+  nameClient!: string;
+  telClient!: string;
+
+  amountProduct!: number;
+  amountOrder!: number;
+  constructor() {
+  }
+}
