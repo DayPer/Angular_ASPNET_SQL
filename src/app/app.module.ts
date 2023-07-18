@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './modules/home/home.component';
 import { TOTALPRICE } from 'src/app/utils/injection.token';
 import { OrdersModule } from './modules/orders/orders.module';
+import { SearchModule } from './modules/search/search.module';
+import { ProductsModule } from './modules/products/products.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { OrdersModule } from './modules/orders/orders.module';
     MaterialModule,
     MatNativeDateModule,
     ActivitiesModule,
-    OrdersModule
+    OrdersModule,
+    SearchModule,
+    ProductsModule
+
   ],
   providers: [{
     provide: TOTALPRICE,

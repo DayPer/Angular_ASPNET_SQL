@@ -1,24 +1,8 @@
-<p>orders works!</p>
+<p>Add Products</p>
 
 <form>
   <mat-form-field appearance="standard">
     <mat-label>Search</mat-label>
-    <input matInput name="Search"   placeholder="Search"
-     [(ngModel)]="search" #input minlength="3" maxlength="3"
-     style="text-transform:uppercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
-     id="vl1">
-  </mat-form-field>
-
-  <div class="demo-button-container">
-    <button mat-raised-button (click)="onClickSubmit(search)" class="demo-button">
-      Submit
-    </button>
-  </div>
-  <br />
-</form>
-<form>
-  <mat-form-field appearance="standard">
-    <mat-label>CodProduct</mat-label>
     <input matInput name="codProduct"   placeholder="CodProduct"
      [(ngModel)]="codProduct" #input minlength="3" maxlength="3"
      style="text-transform:uppercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
@@ -43,6 +27,9 @@
   <br />
 
   <div class="demo-button-container">
+    <button mat-raised-button (click)="onClickSubmit(codProduct)" class="demo-button">
+      Search
+    </button>
     <button mat-raised-button (click)="onClickPost()"class="demo-button">
       Add
     </button>

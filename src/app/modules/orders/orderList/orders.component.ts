@@ -6,6 +6,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { TOTALPRICE } from '../../../utils/injection.token';
 import { dataProducts } from 'src/app/core/entities/data';
 
+export interface ICurrency {
+  currency: string;
+}
+
 export interface IData {
   codProduct: string;
   product: string;
@@ -30,6 +34,9 @@ export class OrdersComponent implements OnInit {
   public price = 0;
   public search = "";
 
+  currency: ICurrency[] = [
+    {currency:"COP"}
+  ];
 
   data: IData[] = [];
 
@@ -46,8 +53,15 @@ export class OrdersComponent implements OnInit {
 
       this.activitiesService.getAllProducts().subscribe(result => {
         this.data = (result);
+        var fcurrency:any
+        this.currency.forEach(trm =>{
+            fcurrency = trm.currency
+            return;
+        })
+
         this.data.forEach(result =>{
           countPrice = (countPrice+(Number(result.price)))
+          result.price = fcurrency +-+ String(Number(result.price));
         })
         this.injectTotalprice=  String(countPrice)
         this.dataSource= this.data;

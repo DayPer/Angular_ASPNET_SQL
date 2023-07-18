@@ -76,12 +76,12 @@ export class ActivitiesTableComponent implements OnInit {
 
       this.activitiesService.getFlights(origin,destination).subscribe(result => {
         this.journeyOptions = (result as IJourneyAvailability);
-        this.currencyTrm.forEach(trm =>{
-          if (trm.currency==currency){
-            currentTrm = trm.trm
-            return;
-          }
-        })
+          this.currencyTrm.forEach(trm =>{
+            if (trm.currency==currency){
+              currentTrm = trm.trm
+              return;
+            }
+          })
 
         this.journeyOptions.journey.flights.forEach(result =>{
           countPrice = (countPrice+(Number(result.price)*currentTrm))
