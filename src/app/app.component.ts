@@ -14,7 +14,8 @@ export class AppComponent {
     // {name: 'ACTIVIDADES', url: '/activities', icon: 'restore'},
     {name: 'PRODUCTS', url: '/products', icon: 'check'},
     {name: 'ORDERS', url: '/orders', icon: 'list'},
-    {name: 'CLIENTS', url: '/search', icon: 'search'},
+    {name: 'SEARCH', url: '/search', icon: 'search'},
+    {name: 'CLIENTS', url: '/client', icon: 'add'},
 
   ];
 

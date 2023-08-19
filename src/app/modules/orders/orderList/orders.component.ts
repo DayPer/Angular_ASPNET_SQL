@@ -5,6 +5,7 @@ import {ActivitiesService} from "../../../core/services/activities.service";
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { TOTALPRICE } from '../../../utils/injection.token';
 import { dataProducts } from 'src/app/core/entities/data';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 export interface ICurrency {
   currency: string;
@@ -39,6 +40,7 @@ export class OrdersComponent implements OnInit {
   displayedColumns: string[] = ['idOrder','codOrder','idClient',
            'nameClient','telClient','amountProduct','amountOrder'];
   dataSource:any;
+  formFields: FormGroup;
 
   @ViewChild(MatSort) sort!: MatSort;
   public codProduct = "";
@@ -60,10 +62,25 @@ export class OrdersComponent implements OnInit {
   dataProducts: IDataProduct[] = [];
 
   constructor(private activitiesService: ActivitiesService,
-    private http: HttpClient,
+    private http: HttpClient,private formBuilder: FormBuilder,
     @Inject(TOTALPRICE) public injectTotalprice: string)
-  {}
+  {
+    this.formFields= this.formBuilder.group({
+      idClient:['',[Validators.required]],
+      nameClient:['',[Validators.required]],
+      telClient:['',[Validators.required]],
+      amountProduct:[0,[Validators.required]],
+    })
+  }
 
+  resertField(){
+    this.formFields =new FormGroup({
+      idClient:new FormControl(''),
+      nameClient:new FormControl(''),
+      telClient:new FormControl(''),
+      amountProduct:new FormControl(0),
+      })
+  }
   onGetSubmit() {
     try {
 
@@ -137,10 +154,12 @@ export class OrdersComponent implements OnInit {
       telClient: this.telClient.trim(),
       amountProduct: Number(this.amountProduct),
       amountOrder: (this.amountProduct*fprice)
-  }
+      }
       this.activitiesService.postOrders(data).subscribe(result => {
         this.onGetSubmit();
+        this.resertField();
     });
+
   }
 
   onGetAllProducts() {

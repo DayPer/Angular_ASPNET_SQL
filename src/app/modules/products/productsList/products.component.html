@@ -1,51 +1,130 @@
 <p>Add Products</p>
 
-<form>
+<form [formGroup]="formFields">
   <mat-form-field appearance="standard">
     <mat-label>Search/Create</mat-label>
-    <input matInput name="codProduct"   placeholder="CodProduct"
-     [(ngModel)]="codProduct" #input minlength="3" maxlength="3"
-     style="text-transform:uppercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
-     id="vl1">
+    <input
+      matInput
+      name="codProduct"
+      placeholder="CodProduct"
+      [(ngModel)]="codProduct"
+      #input
+      minlength="3"
+      maxlength="3"
+      style="text-transform: uppercase"
+      value=""
+      onkeyup="javascript:this.value=this.value.toUpperCase();"
+      id="vl1"
+      formControlName="codProduct"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="standard">
     <mat-label>Product Name</mat-label>
-    <input matInput name="codProduct" placeholder="Product"
-     [(ngModel)]="product" #input minlength="5" maxlength="20"
-     style="text-transform:lowercase;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
-     id="vl2">
+    <input
+      matInput
+      name="codProduct"
+      placeholder="Product"
+      [(ngModel)]="product"
+      #input
+      minlength="5"
+      maxlength="20"
+      style="text-transform: lowercase"
+      value=""
+      onkeyup="javascript:this.value=this.value.toUpperCase();"
+      id="vl2"
+      formControlName="product"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="standard">
     <mat-label>Amount</mat-label>
-    <input matInput name="amount" placeholder="amount"
-     [(ngModel)]="amount" #input minlength="4" maxlength="6"
-     style="text-transform:unset;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
-     id="vl2">
+    <input
+      matInput
+      name="amount"
+      placeholder="amount"
+      [(ngModel)]="amount"
+      #input
+      minlength="4"
+      maxlength="6"
+      style="text-transform: unset"
+      value=""
+      onkeyup="javascript:this.value=this.value.toUpperCase();"
+      id="vl2"
+      formControlName="amount"
+    />
   </mat-form-field>
 
   <mat-form-field appearance="standard">
     <mat-label>Price</mat-label>
-    <input matInput name="product" placeholder="Price"
-     [(ngModel)]="price" #input minlength="4" maxlength="6"
-     style="text-transform:unset;" value=""  onkeyup="javascript:this.value=this.value.toUpperCase();"
-     id="vl2">
+    <input
+      matInput
+      name="product"
+      placeholder="Price"
+      [(ngModel)]="price"
+      #input
+      minlength="4"
+      maxlength="6"
+      style="text-transform: unset"
+      value=""
+      onkeyup="javascript:this.value=this.value.toUpperCase();"
+      id="vl2"
+      formControlName="price"
+    />
   </mat-form-field>
 
   <br />
+  <div>
+    <button type="button" mat-raise-button (click)="fileInput.click()">Select Actor Image</button>
+    <input type="file"
+    hidden
+    #fileInput
+    (change)="SaveChanges($event)"/>
+  </div>
+  <div>
+    <div *ngIf="imageBase64">
+      <img [src]="imageBase64"/>
+    </div>
+    <div *ngIf="urlcurrentImage">
+      <img [src]="urlcurrentImage"/>
+    </div>
+  </div>
+  <br />
 
   <div class="demo-button-container">
-    <button mat-raised-button (click)="onClickSubmit(codProduct)" class="demo-button">
+    <button
+      mat-raised-button
+      (click)="onSearch(codProduct)"
+      class="demo-button"
+    >
       Search
     </button>
-    <button mat-raised-button (click)="onClickPost()"class="demo-button">
+    <button
+      mat-raised-button
+      (click)="onClickPost()"
+      class="demo-button"
+      [disabled]="formFields.invalid"
+      *ngIf="dataSource ||!dataSource || codProduct"
+
+    >
       Add
     </button>
-    <button mat-raised-button (click)="onClickPut()" class="demo-button">
+    <button
+      mat-raised-button
+      (click)="onClickPut()"
+      class="demo-button"
+      [disabled]="formFields.invalid"
+      *ngIf="codProduct"
+
+    >
       Update
     </button>
-    <button mat-raised-button (click)="onClickDelete(codProduct)" class="demo-button">
+    <button
+      mat-raised-button
+      (click)="onClickDelete(codProduct)"
+      class="demo-button"
+      *ngIf="codProduct"
+    >
       Delete
     </button>
   </div>
@@ -54,36 +133,36 @@
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
-
     <ng-container matColumnDef="codProduct">
-      <th mat-header-cell *matHeaderCellDef> CodProduct</th>
-      <td mat-cell *matCellDef="let row"> {{row.codProduct}} </td>
+      <th mat-header-cell *matHeaderCellDef>CodProduct</th>
+      <td mat-cell *matCellDef="let row">{{ row.codProduct }}</td>
     </ng-container>
 
     <ng-container matColumnDef="product">
-      <th mat-header-cell *matHeaderCellDef> Product</th>
-      <td mat-cell *matCellDef="let row"> {{row.product}} </td>
+      <th mat-header-cell *matHeaderCellDef>Product</th>
+      <td mat-cell *matCellDef="let row">{{ row.product }}</td>
     </ng-container>
 
     <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef> Amount</th>
-      <td mat-cell *matCellDef="let row"> {{row.amount}} </td>
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let row">{{ row.amount }}</td>
     </ng-container>
 
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> Price</th>
-      <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let row">{{ row.price }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row  *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">Deleted or not exist
-        {{input.value}}"</td>
+      <td class="mat-cell" colspan="4">
+        Deleted or not exist {{ input.value }}"
+      </td>
     </tr>
   </table>
 </div>
-<br>
+<br />
 <mat-label>TOTAL AMOUNT PRICE :</mat-label>
-<mat-label>{{injectTotalprice | currency }}</mat-label>
+<mat-label>{{ injectTotalprice | currency }}</mat-label>

@@ -1,17 +1,11 @@
 
-export class Flights {
-  origin!: string;
-  destination!: string;
-  price!: string;
-  flightNumber! : string;
-  constructor() {
-  }
-}
 
 export class dataProducts {
   codProduct!: string;
   product!: string;
   price!: number;
+  amount!: number;
+  photo!: any;
   constructor() {
   }
 }
@@ -26,6 +20,16 @@ export class dataOrders {
 
   amountProduct!: number;
   amountOrder!: number;
+  constructor() {
+  }
+
+}
+
+export class Clients {
+  idClient!: string;
+  nameClient!: string;
+  mailClient!: string;
+
   constructor() {
   }
 }

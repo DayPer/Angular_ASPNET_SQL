@@ -4,9 +4,6 @@ import {Observable} from "rxjs";
 import { dataOrders, dataProducts } from '../entities/data';
 import { BehaviorSubject } from 'rxjs';
 
-
-
-export const ipServer1 = 'https://localhost:7254';
 export const ipServer2 = 'http://localhost:58683';
 
 
@@ -16,9 +13,6 @@ export const ipServer2 = 'http://localhost:58683';
 export class ActivitiesService {
 
   constructor(private http: HttpClient) {
-  }
-  public getFlights(origin:any, destination:any): Observable<any> {
-    return this.http.get<any>(`${ipServer1}/flightAvailability/GetFlightsForJourney?Origin=`+ origin + '&Destination=' + destination);
   }
 
   public getAllProducts(): Observable<any> {
@@ -37,8 +31,19 @@ export class ActivitiesService {
     return this.http.put<any>(`${ipServer2}/api/Products/`+ codProduct,data);
   }
 
-  public postProducts(data:dataProducts): Observable<any> {
-    return this.http.post<any>(`${ipServer2}/api/Products/`,data);
+  private objformData(data:dataProducts): FormData{
+    const formData = new FormData();
+    formData.append('codProduct',data.codProduct)
+    formData.append('product',data.product)
+    formData.append('price',data.price.toString())
+    formData.append('amount',data.amount.toString())
+    formData.append('photo',data.photo)
+
+    return formData;
+  }
+
+  public postProducts(data:any): Observable<any> {
+    return this.http.post(`${ipServer2}/api/Products/`,(data));
   }
 
   public getAllOrders(): Observable<any> {
@@ -61,11 +66,4 @@ export class ActivitiesService {
     return this.http.put<any>(`${ipServer2}/api/Orders/`+ codOrder,data);
   }
 
-  public getAllClients(): Observable<any> {
-    return this.http.get<any>(`${ipServer2}/api/Clients`);
-  }
-
-  public getClient(search:any): Observable<any> {
-    return this.http.get<any>(`${ipServer2}/api/Clients/`+search);
-  }
 }

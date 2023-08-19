@@ -1,15 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ActivitiesTableComponent} from './activities-table/activities-table.component';
-import {MaterialModule} from "../../material/material.module";
+import {MaterialModule} from 'src/app/material/material.module';
 import {MatTableModule} from "@angular/material/table";
-import {UtilsModule} from "../../utils/utils.module";
+import {UtilsModule} from 'src/app/utils/utils.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { ClientComponent } from './client-add/client.component';
+import { EditComponent } from './client-edit/edit.component';
 
 @NgModule({
   declarations: [
-    ActivitiesTableComponent,
-
+    ClientComponent,
+    EditComponent,
   ],
   imports: [
     CommonModule,
@@ -20,5 +21,5 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     FormsModule
   ]
 })
-export class ActivitiesModule {
+export class ClientModule {
 }

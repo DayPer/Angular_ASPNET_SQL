@@ -1,0 +1,53 @@
+<p>client works!</p>
+<form [formGroup]="clientsForm" class="example-form" autocomplete="off">
+  <div class="center" mat-dialog-content>
+    <mat-form-field appearance="standard">
+      <mat-label>ID Card</mat-label>
+      <input
+        matInput
+        name="id"
+        placeholder="idCard"
+        formControlName="id"
+        style="text-transform: unset"
+        value=""
+        onkeyup="javascript:this.value=this.value.toUpperCase();"
+        id="vl1"
+        [(ngModel)]="id"
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="standard">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        name="name"
+        placeholder="name"
+        formControlName="name"
+        style="text-transform: uppercase"
+        value=""
+        onkeyup="javascript:this.value=this.value.toUpperCase();"
+        id="vl1"
+      />
+    </mat-form-field>
+    <br />
+
+    <mat-form-field appearance="standard">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        name="email"
+        placeholder="email"
+        formControlName="email"
+        style="text-transform: lowercase"
+        value=""
+        onkeyup="javascript:this.value=this.value.toLowerCase();"
+        id="vl1"
+      />
+    </mat-form-field>
+  </div>
+</form>
+<div mat-dialog-actions align="center">
+  <button mat-raised-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button (click)="addClient()" color="primary" cdkFocusInitial>Aceptar</button>
+</div>
+
